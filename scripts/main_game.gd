@@ -11,6 +11,8 @@ var spawn_interval = 2.0 # Seconds for missile spawning
 
 # UI Reference
 @onready var game_ui_instance = $GameUI_Instance # Path to the instanced UI scene
+@onready var background_node: ColorRect = $Background
+@onready var player_turret_node: Node2D = $PlayerTurret
 
 # Timer for spawning missiles - will be initialized in _ready
 var missile_spawn_timer = null
@@ -20,15 +22,15 @@ func _ready():
 
     # Configure background to fill screen
     var viewport_rect = get_viewport_rect()
-    if $Background: # Check if Background node exists
-         $Background.size = viewport_rect.size
+    if background_node: # Check if Background node exists
+         background_node.size = viewport_rect.size
     else:
         push_warning("Background node not found in MainGame.")
 
 
     # Position turret (example: bottom center)
-    if $PlayerTurret:
-        $PlayerTurret.position = Vector2(viewport_rect.size.x / 2, viewport_rect.size.y - 50)
+    if player_turret_node:
+        player_turret_node.position = Vector2(viewport_rect.size.x / 2, viewport_rect.size.y - 50)
     else:
         push_warning("PlayerTurret node not found in MainGame.")
 
