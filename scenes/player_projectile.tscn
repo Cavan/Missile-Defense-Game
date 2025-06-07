@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5w5kgec255k8"]
+
+[ext_resource type="Script" path="res://scripts/player_projectile.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://cxyf07yq12j7g" path="res://icon.svg" id="2_fghij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12345"]
+size = Vector2(32, 32) # Adjusted size to roughly match a scaled down icon
+
+[node name="PlayerProjectile" type="Area2D"]
+script = ExtResource("1_abcde")
+collision_layer = 1 # Corresponds to "player_projectiles"
+collision_mask = 2  # Corresponds to "enemy_missiles"
+
+[node name="ProjectileSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25) # Scaled down icon
+texture = ExtResource("2_fghij")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_12345")
+
+# Connection will be made in script's _ready() function now, or ensure method name matches if kept here.
+# The provided script uses area_entered.connect(_on_area_entered) in _ready()
+# So, this explicit connection below might be redundant or could conflict if method name differs.
+# For safety, let's remove it here as the script will handle it.
+# [connection signal="body_entered" from="." to="." method="_on_PlayerProjectile_body_entered"]
+# The new script connects area_entered to _on_area_entered.
+# If we wanted to keep it here, it should be:
+# [connection signal="area_entered" from="." to="." method="_on_area_entered"]
