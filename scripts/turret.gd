@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var turret_sprite: Sprite2D = $TurretSprite
+
 const PlayerProjectile = preload("res://scenes/player_projectile.tscn")
 
 # Turret properties
@@ -10,6 +12,15 @@ var shoot_cooldown = 0.5 # Seconds
 var shoot_timer = null
 
 func _ready():
+    # Load and set texture for TurretSprite
+    var icon_tex = load("res://icon.svg")
+    if turret_sprite and icon_tex:
+        turret_sprite.texture = icon_tex
+    elif not turret_sprite:
+        printerr("TurretSprite node not found in turret.gd for icon assignment.")
+    elif not icon_tex:
+        printerr("Failed to load res://icon.svg in turret.gd.")
+
     # Timer for shoot cooldown
     shoot_timer = Timer.new()
     shoot_timer.wait_time = shoot_cooldown
