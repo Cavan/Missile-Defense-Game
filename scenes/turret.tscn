@@ -6,4 +6,3 @@
 script = ExtResource("1_wv12k")
 
 [node name="TurretSprite" type="Sprite2D" parent="."]
-texture = preload("res://icon.svg")
